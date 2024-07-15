@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export PGDATA=/usr/local/pgsql/data
+
+# stop server if running
+pg_ctl stop
+
+# re-compile and re-install
+make all install
+
+ret=$?
+if [ $ret -ne 0 ]; then
+  echo ERROR: compilation failed
+  exit $ret
+fi
+
+# restart the server
+truncate --size=0 ~/postgresql/logfile
+pg_ctl start -l ~/postgresql/logfile
