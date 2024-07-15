@@ -1,0 +1,4 @@
+#!/bin/sh
+export PGDATA=/usr/local/pgsql/data
+truncate --size=0 ~/postgresql/logfile
+pg_ctl start -l ~/postgresql/logfile
